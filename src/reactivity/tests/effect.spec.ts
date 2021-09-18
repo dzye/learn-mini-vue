@@ -9,6 +9,6 @@ describe('effect', () => {
     });
     expect(nextAge).toBe(11);
     user.age++;
-    // expect(nextAge).toBe(12);
+    expect(nextAge).toBe(12);
   });
 });

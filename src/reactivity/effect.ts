@@ -22,6 +22,13 @@ export function track(target, key) {
   }
   dep.add(activeEffect);
 }
+export function trigger(target, key) {
+  let depsMap = targetMap.get(target);
+  let dep = depsMap.get(key);
+  for (const effect of dep) {
+    effect.run();
+  }
+}
 let activeEffect;
 export function effect(fn) {
   const _effect = new ReactiveEffect(fn);
