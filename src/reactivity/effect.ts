@@ -1,7 +1,7 @@
 import { extend } from '../shared';
 let activeEffect;
 let shouldTrack;
-class ReactiveEffect {
+export class ReactiveEffect {
   deps = [];
   active = true;
   private _fn: any;
