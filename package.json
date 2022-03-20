@@ -1,7 +1,8 @@
 {
   "name": "learn-mini-vue",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/guide-mini-vue.cjs.js",
+  "module": "lib/guide-mini-vue.esm.js",
   "repository": "https://github.com/dzye/learn-mini-vue.git",
   "license": "MIT",
   "scripts": {
