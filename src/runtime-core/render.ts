@@ -4,7 +4,11 @@ export function render(vnode, container) {
   patch(vnode, container)
 }
 function patch(vnode, container) {
-  processComponent(vnode, container)
+  if (typeof vnode.type === 'string') {
+    processElement(vnode, container)
+  } else {
+    processComponent(vnode, container)
+  }
 
 }
 
@@ -21,4 +25,8 @@ function mountComponent(vnode: any, container: any) {
 function setupRenderEffect(instance: any, container: any) {
   const subTree = instance.render();
   patch(subTree, container)
+}
+
+function processElement(vnode: any, container: any) {
+  // todo
 }
