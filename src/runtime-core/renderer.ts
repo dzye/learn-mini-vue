@@ -1,4 +1,4 @@
-import { isObject } from './../shared/index';
+import { isObject } from '../shared/index';
 import { createComponentInstance, setupComponent } from "./component"
 
 export function render(vnode, container) {
@@ -10,7 +10,6 @@ function patch(vnode, container) {
   } else if (isObject(vnode.type)) {
     processComponent(vnode, container)
   }
-
 }
 
 function processComponent(vnode: any, container: any) {
@@ -24,14 +23,14 @@ function mountComponent(vnode: any, container: any) {
 }
 
 function setupRenderEffect(instance: any, container: any) {
-  const subTree = instance.render();
+  const { proxy } = instance
+  const subTree = instance.render.call(proxy);
   patch(subTree, container)
 }
 
 function processElement(vnode: any, container: any) {
   const el = document.createElement(vnode.type)
   const { children, props } = vnode
-
   if (Array.isArray(children)) {
     mountChildren(children, el)
 

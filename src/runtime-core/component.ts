@@ -1,7 +1,8 @@
 export function createComponentInstance(vnode) {
   const component = {
     vnode,
-    type: vnode.type
+    type: vnode.type,
+    setupState: {}
   }
   return component
 }
@@ -9,10 +10,19 @@ export function setupComponent(instance) {
   // initProps()
   // initSlot()
   setupStatefulComponent(instance)
+
 }
 
 function setupStatefulComponent(instance: any) {
   const Component = instance.type;
+  instance.proxy = new Proxy({}, {
+    get(target, key) {
+      const { setupState } = instance
+      if (key in setupState) {
+        return setupState[key]
+      }
+    }
+  })
   const { setup } = Component
   if (setup) {
     const setupResult = setup()
@@ -22,7 +32,7 @@ function setupStatefulComponent(instance: any) {
 
 function handleSetupResult(instance, setupResult: any) {
   if (typeof setupResult === 'object') {
-    instance.setupResult = setupResult
+    instance.setupState = setupResult
   }
   finishComponentSetup(instance)
 }
