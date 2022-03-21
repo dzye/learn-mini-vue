@@ -1,3 +1,4 @@
+import { isObject } from './../shared/index';
 import { createComponentInstance, setupComponent } from "./component"
 
 export function render(vnode, container) {
@@ -6,7 +7,7 @@ export function render(vnode, container) {
 function patch(vnode, container) {
   if (typeof vnode.type === 'string') {
     processElement(vnode, container)
-  } else {
+  } else if (isObject(vnode.type)) {
     processComponent(vnode, container)
   }
 
@@ -28,5 +29,24 @@ function setupRenderEffect(instance: any, container: any) {
 }
 
 function processElement(vnode: any, container: any) {
-  // todo
+  const el = document.createElement(vnode.type)
+  const { children, props } = vnode
+
+  if (Array.isArray(children)) {
+    mountChildren(children, el)
+
+  } else if (typeof children === 'string') {
+    el.textContent = children
+  }
+  for (const key in props) {
+    const val = props[key]
+    el.setAttribute(key, val)
+  }
+  container.append(el)
+}
+
+function mountChildren(vnode, container) {
+  vnode.forEach(v => {
+    patch(v, container)
+  })
 }
