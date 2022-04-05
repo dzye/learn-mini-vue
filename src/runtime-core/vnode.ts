@@ -1,4 +1,3 @@
-// import { isObject } from './../shared/index';
 import { ShapeFlags } from "../shared/shapeFlags"
 
 export function createVNode(type, props?, children?) {
@@ -14,13 +13,6 @@ export function createVNode(type, props?, children?) {
   return vnode
 }
 function getShapeFlag(type: any) {
-  // if (typeof type === 'string') {
-  //   return ShapeFlags.ELEMENT
-  // }
-  // if (isObject(type)) {
-  //   return ShapeFlags.STATEFUL_COMPONENT
-  // }
-  // return 0
   return typeof type === 'string' ? ShapeFlags.ELEMENT : ShapeFlags.STATEFUL_COMPONENT
 }
 
