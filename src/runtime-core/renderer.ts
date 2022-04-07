@@ -1,4 +1,3 @@
-import { isObject } from '../shared/index';
 import { ShapeFlags } from '../shared/shapeFlags';
 import { createComponentInstance, setupComponent } from "./component"
 
@@ -24,7 +23,7 @@ function mountComponent(initialVnode: any, container: any) {
   setupRenderEffect(instance, initialVnode, container)
 }
 
-function setupRenderEffect(instance: any, initialVnode, container: any) {
+function setupRenderEffect(instance: any, initialVnode, container: any) { 
   const { proxy } = instance
   const subTree = instance.render.call(proxy);
   patch(subTree, container)
@@ -41,10 +40,6 @@ function mountElement(vnode: any, container: any) {
   }
   for (const key in props) {
     const val = props[key]
-    // if (key.startsWith('on')) {
-    //   el.addEventListener(key.slice(2), val)
-    // }
-    // el.setAttribute(key, val)
     const isOn = (key: string) => /^on[A-Z]/.test(key)
     if (isOn(key)) {
       el.addEventListener(key.slice(2).toLowerCase(), val)
